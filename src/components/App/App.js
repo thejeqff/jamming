@@ -25,7 +25,16 @@ class App extends Component {
         artist: "Killswtich Engage",
         album: "As Daylight Dies",
         id:"3"
-      }]
+      }],
+      playlistName: "My Playlist",
+      playlistTracks: [
+        {
+          name: "She",
+          artist: "Green Day",
+          album: "Dookie",
+          id: "1"
+        }
+      ]
     };
   }
   render() {
@@ -36,7 +45,10 @@ class App extends Component {
           <SearchBar />
           <div className="App-playlist">
             <SearchResults searchResults={this.state.searchResults}/>
-            <Playlist component />
+            <Playlist
+              playlistName={this.state.playlistName}
+              playlistTracks={this.state.playlistTracks}
+            />
           </div>
         </div>
       </div>
