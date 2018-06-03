@@ -42,12 +42,12 @@ class App extends Component {
     const newName = name;
     this.setState({
       playlistName: newName
-    })
+    });
   }
 
   savePlaylist() {
-    const trackURIs = this.state.playlistTracks.map(playlistTrack =>
-    return playlistTrack.uri);
+    const trackURIs = this.state.playlistTracks.map(playlistTrack => {
+    return playlistTrack.uri;})
   }
 
   search(searchTerm) {
