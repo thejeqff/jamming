@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './App.css';
 import {SearchBar} from '../SearchBar/SearchBar';
 import {SearchResults} from '../SearchResults/SearchResults';
@@ -8,35 +9,32 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchResults: [
-      {
-        name: "She",
-        artist: "Green Day",
-        album: "Dookie",
-        id:"1"},
-      {
-        name: "Drifting",
-        artist: "Andy McKee",
-        album: "Art of Motion",
-        id:"2"
-      },
-      {
-        name: "My Curse",
-        artist: "Killswtich Engage",
-        album: "As Daylight Dies",
-        id:"3"
-      }],
-      playlistName: "My Playlist",
-      playlistTracks: [
-        {
-          name: "She",
-          artist: "Green Day",
-          album: "Dookie",
-          id: "1"
-        }
-      ]
+      searchResults: [],
+      playlistName: '',
+      playlistTracks: []
     };
+    this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
+
+  addTrack(track) {
+    if (track.id === this.state.playlistTracks.find(savedTrack => savedTrack.id)) {
+      return;
+    } else {
+      const newPlaylistTracks = this.state.newPlaylistTracks.push(track);
+      this.setState({
+        playlistTracks: newPlaylistTracks
+      })
+    }
+  }
+
+  removeTrack(track) {
+    const newPlaylistTracks = this.state.playlistTracks.filter(!track.id)
+    this.setState({
+      playlistTracks: newPlaylistTracks
+    });
+  }
+
   render() {
     return (
       <div>
@@ -44,10 +42,11 @@ class App extends Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults}/>
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
             <Playlist
               playlistName={this.state.playlistName}
               playlistTracks={this.state.playlistTracks}
+              onRemove={this.removeTrack}
             />
           </div>
         </div>
@@ -55,5 +54,12 @@ class App extends Component {
     );
   }
 }
+
+// App.propTypes = {
+//   searchResults: PropTypes.array,
+//   onAdd: PropTypes.func,
+//   playlistName: PropTypes.string,
+//   playlistTracks: PropTypes.array
+// }
 
 export default App;
