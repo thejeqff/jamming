@@ -5,10 +5,16 @@ import {Track} from '../Track/Track';
 
 export class TrackList extends React.Component {
   render() {
+    let tracks;
+    if (typeof this.props.tracks === 'object') {
+      tracks = this.props.tracks;
+    } else {
+      tracks = [];
+    }
     return (
       <div className="TrackList">
         {
-        this.props.tracks.map(track => {
+        tracks.map(track => {
           return <Track
           track={track}
           key={track.id}
